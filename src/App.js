@@ -1,7 +1,7 @@
 import './App.css';
 import { Table, message} from 'antd';
 import { useEffect, useState } from 'react';
-
+import ChildComponent from './ChildComponent';
  
 const dataSourceInitial = [
   {
@@ -71,6 +71,10 @@ const GrootSays = [
 
 
 function App() {
+  const [dataFromChild, setDataFromChild] = useState('');
+  const handleChildData = (data) => {
+    setDataFromChild(data);
+  };  
   const [messageApi, contextHolder] = message.useMessage();
   const info = (columnName,record,rowIndex) => {
     const myJSON = JSON.stringify(record); 
@@ -146,6 +150,12 @@ function App() {
         <Table dataSource={dataSource} columns={columns} pagination={false}/>
         <br/>
         <Table dataSource={detailDataSource} columns={detailColumns} pagination={false}/>
+        {dataFromChild && <p>Data from child: {dataFromChild}</p>}
+
+        <ChildComponent onDataReceived={handleChildData} />
+
+        <br/>
+        
       </header>
     </div>
   );
