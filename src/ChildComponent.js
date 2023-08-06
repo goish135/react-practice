@@ -1,21 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const ChildComponent = ({ onDataReceived }) => {
-  const [data, setData] = useState('');
+  const dataSource = [
+    {
+      key: '1',
+      name: 'Mike',
+      age: 32,
+      address: '10 Downing Street',
+    },
+    {
+      key: '2',
+      name: 'John',
+      age: 42,
+      address: '10 Downing Street',
+    },
+  ];
 
-  const handleInputChange = (event) => {
-    setData(event.target.value);
-  };
+  const columns = [
+    {
+      title: 'Name',
+      dataIndex: 'name',
+      key: 'name',
+    },
+    {
+      title: 'Age',
+      dataIndex: 'age',
+      key: 'age',
+    },
+    {
+      title: 'Address',
+      dataIndex: 'address',
+      key: 'address',
+    },
+  ];
 
+  // Call the callback function provided by the parent with the data source and columns
   const sendDataToParent = () => {
-    // Call the callback function passed from the parent with the data
-    onDataReceived(data);
+    onDataReceived(dataSource, columns);
   };
 
   return (
     <div>
       <h2>Child Component</h2>
-      <input type="text" value={data} onChange={handleInputChange} />
+      {/* Add your child component UI here */}
       <button onClick={sendDataToParent}>Send Data to Parent</button>
     </div>
   );
